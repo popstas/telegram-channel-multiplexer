@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Telegram Multiplexer",
+            "type": "python",
+            "request": "launch",
+            "module": "telegram_channel_multiplexer",
+            "justMyCode": true,
+            "env": {
+                "TCM_CONFIG": "${workspaceFolder}/config.example.yml"
+            }
+        }
+    ]
+}
