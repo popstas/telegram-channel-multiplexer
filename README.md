@@ -18,7 +18,14 @@ Telegram Channel Multiplexer is a utility bot that replicates messages from one 
 
 ## Installation
 
-Clone the repository and install dependencies. The project uses a standard Python package layout.
+Clone the repository and install dependencies. The project uses a standard Python package layout. Creating a virtual environment keeps dependencies isolated:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows use `.venv\\Scripts\\activate`
+```
+
+With the environment activated, install the package in editable mode:
 
 ```bash
 pip install -e .

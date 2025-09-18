@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Optional
 
 from aiogram import Bot, Dispatcher, F
+from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from aiogram.types import Message
@@ -72,7 +73,7 @@ def create_dispatcher(config_manager: ConfigManager, forwarder: Forwarder | None
 async def run_async() -> None:
     config_manager = ConfigManager(CONFIG_PATH)
     token = _resolve_token(config_manager)
-    bot = Bot(token=token, parse_mode=ParseMode.HTML)
+    bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dispatcher = create_dispatcher(config_manager)
 
     logger.info(
