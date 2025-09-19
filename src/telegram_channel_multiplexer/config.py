@@ -118,7 +118,12 @@ class ConfigManager:
 
     def _write_to_disk(self, config: BotConfig) -> None:
         with self._path.open("w", encoding="utf-8") as fh:
-            yaml.safe_dump(config.to_dict(), fh, sort_keys=False)
+            yaml.safe_dump(
+                config.to_dict(),
+                fh,
+                sort_keys=False,
+                allow_unicode=True,
+            )
 
     def reload(self) -> BotConfig:
         with self._lock:
