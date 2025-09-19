@@ -47,12 +47,16 @@ Copy `config.example.yml` to `config.yml` and adjust the values. The bot reads i
 # config.yml
 bot_token: 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
 source_chats:
-  - -1001234567890
-  - -1002222333344
+  - chat_id: -1001234567890
+    title: Source Channel A
+  - chat_id: -1002222333344
+    title: Source Group B
 target_chats:
   - chat_id: -1005555666677
+    title: Destination Channel X
   - chat_id: -1008888999900
     thread_id: 123
+    title: Destination Forum Topic
 admin_usernames:
   - primaryadmin
   - backupadmin
@@ -60,12 +64,12 @@ delay_seconds: 1.5
 ```
 
 - `bot_token`: Telegram bot token obtained from [@BotFather](https://t.me/BotFather) (can also be supplied via the `TELEGRAM_BOT_TOKEN` environment variable).
-- `source_chats`: Telegram chat IDs that the bot should monitor for new messages. Only messages originating from these chats are forwarded.
-- `target_chats`: Destination chats. Each entry accepts a `chat_id` and an optional `thread_id` for directing content into forum topics.
+- `source_chats`: Chats that the bot should monitor for new messages. Each entry records a `chat_id` and human-friendly `title` to make the configuration easier to read. Only messages originating from these chats are forwarded.
+- `target_chats`: Destination chats. Each entry accepts a `chat_id`, a descriptive `title`, and an optional `thread_id` for directing content into forum topics.
 - `admin_usernames`: Telegram usernames (without `@`) allowed to administer the bot.
 - `delay_seconds`: Number of seconds to wait between forwarding messages to each target. Adjust this based on the number of channels you manage (the default of 1 second works well for ~50 channels).
 
-When an authorized admin sends `/activate` in a channel or group, the chat ID (and thread if applicable) is appended to `target_chats`. The bot immediately persists the updated configuration.
+When an authorized admin sends `/activate` in a channel or group, the chat ID, title, and thread (if applicable) are appended to `target_chats`. The bot immediately persists the updated configuration.
 
 ## Running the Bot
 

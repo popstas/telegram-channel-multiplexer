@@ -4,13 +4,17 @@ bot_token: <TELEGRAM_BOT_TOKEN>
 
 # Chats where the bot listens for new content to forward.
 source_chats:
-  - -1001111111111
-  - -1002222222222
+  - chat_id: -1001111111111
+    title: Source Channel A
+  - chat_id: -1002222222222
+    title: Source Group B
 
 # Chats where messages should be forwarded. Optional thread IDs route messages into forum topics.
 target_chats:
   - chat_id: -1003333333333
+    title: Destination Channel X
   - chat_id: -1004444444444
+    title: Destination Forum Y
     thread_id: 5678
 
 # Telegram usernames (without the leading @) allowed to administer the bot.
