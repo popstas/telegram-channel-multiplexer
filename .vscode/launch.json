@@ -8,7 +8,7 @@
             "module": "telegram_channel_multiplexer",
             "justMyCode": true,
             "env": {
-                "TCM_CONFIG": "${workspaceFolder}/config.example.yml"
+                "TCM_CONFIG": "${workspaceFolder}/config.yml"
             }
         }
     ]
