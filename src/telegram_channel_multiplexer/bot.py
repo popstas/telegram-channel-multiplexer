@@ -34,6 +34,9 @@ def _resolve_token(config_manager: ConfigManager) -> str:
 
 
 def register_handlers(router: Dispatcher, config_manager: ConfigManager, forwarder: Forwarder) -> None:
+    def is_source_chat(chat_id: int) -> bool:
+        return any(chat.chat_id == chat_id for chat in config_manager.config.source_chats)
+
     @router.message(Command("activate"))
     @router.channel_post(Command("activate"))
     async def activate_handler(message: Message, bot: Bot) -> None:
@@ -44,7 +47,8 @@ def register_handlers(router: Dispatcher, config_manager: ConfigManager, forward
             return
         chat_id = message.chat.id
         thread_id = getattr(message, "message_thread_id", None)
-        added = config_manager.add_target_chat(chat_id, thread_id)
+        chat_title = getattr(message.chat, "title", "") or ""
+        added = config_manager.add_target_chat(chat_id, thread_id, title=chat_title)
         if added:
             await message.answer("Channel registered for forwarding.")
         else:
@@ -52,13 +56,13 @@ def register_handlers(router: Dispatcher, config_manager: ConfigManager, forward
 
     @router.channel_post()
     async def channel_post_handler(message: Message, bot: Bot) -> None:
-        if message.chat.id not in config_manager.config.source_chats:
+        if not is_source_chat(message.chat.id):
             return
         await forwarder.forward(bot, message, config_manager.config.target_chats)
 
     @router.message(F.chat.type.in_({"group", "supergroup"}))
     async def group_message_handler(message: Message, bot: Bot) -> None:
-        if message.chat.id not in config_manager.config.source_chats:
+        if not is_source_chat(message.chat.id):
             return
         await forwarder.forward(bot, message, config_manager.config.target_chats)
 
