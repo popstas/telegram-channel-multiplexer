@@ -43,7 +43,7 @@ def register_handlers(router: Dispatcher, config_manager: ConfigManager, forward
         username: Optional[str] = message.from_user.username if message.from_user else None
         allowed = {name.lower() for name in config_manager.config.admin_usernames}
         if not username or username.lower() not in allowed:
-            await message.answer("You do not have permission to activate forwarding in this chat.")
+            # await message.answer("You do not have permission to activate forwarding in this chat.")
             return
         chat_id = message.chat.id
         thread_id = getattr(message, "message_thread_id", None)
